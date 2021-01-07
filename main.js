@@ -16,7 +16,7 @@ const startGame = () => {
   while(i < game.turn && game.status !== "finished") {
     const aliveChar = game.isAlive(characters)
     console.log(`%c%s`, `color: green; background: yellow; font-size: 24px;`, `===== New turn =====`)
-    game.newTurn();
+    // game.newTurn();
     game.turnLeft(i)
 
 
@@ -26,5 +26,6 @@ const startGame = () => {
     new Turn(orderChar);
     i++;
   };
+  
 };
 launchScript.addEventListener("click", startGame);

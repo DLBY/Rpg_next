@@ -4,7 +4,7 @@ class Game {
     this.status = status ;
   };
   initializingChar = () => {
-    const players = [new Paladin(), new Assassin(),new Berzerker(), new Fighter(),new Monk()];
+    const players = [new Paladin(), new Assassin(),new Berzerker(), new Fighter(),new Monk(), new Wizard()];
     return players
   }
 

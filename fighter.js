@@ -1,5 +1,5 @@
 class Fighter extends Character {
-  constructor(name="Grace", hp = 1, dmg = 4, mana = 40, status="playing") {//hp12
+  constructor(name="Grace", hp = 12, dmg = 4, mana = 40, status="playing") {
     super(name, hp, dmg, mana, status)
   }
 
