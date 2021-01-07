@@ -13,15 +13,17 @@ const startGame = () => {
   const game = new Game();
   const characters = game.initializingChar();
   let i = 0;
-  while(i < 1 || game.status !== "finished") {
+  while(i < game.turn && game.status !== "finished") {
     const aliveChar = game.isAlive(characters)
+    console.log(`%c%s`, `color: green; background: yellow; font-size: 24px;`, `===== New turn =====`)
     game.newTurn();
-    console.log("New turn");
-    const orderChar = shuffleArray(characters);
-    new Turn(orderChar);
+    game.turnLeft(i)
+
+
     const charactersEndGame = game.isAlive(aliveChar)
     game.endGame(charactersEndGame);
-    console.log(game.status);
+    const orderChar = shuffleArray(characters);
+    new Turn(orderChar);
     i++;
   };
 };

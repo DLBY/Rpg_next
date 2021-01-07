@@ -6,33 +6,30 @@ class Game {
   initializingChar = () => {
     const players = [new Paladin(), new Assassin(),new Berzerker(), new Fighter(),new Monk()];
     return players
-    // const player1 = new Paladin;
-    // const player2 = new Assassin;
-    // const player3 = new Berzerker;
-    // const player4 = new Figter;
-    // const player5 = new Monk;
   }
 
-  turnLeft = () => {
+  turnLeft = (i) => {
     this.turn
-    console.log(`Nombre de tours restants : ${i}`);
+    console.log(`${this.turn} rounds left`);
+    console.log(`Round n° ${i +1}`);
   };
 
   newTurn = () => {
     this.turn--;
-    console.log(`${this.turn} rounds left`);
   };
 
-  endGame = () => {
-    this.player.isAlive();
-    if (this.turn === 0) {
-      this.status = "ended"
+  endGame = (listPlayerLeft) => {
+    
+    if (this.turn === 0 || listPlayerLeft.length <= 1) {
+      let playerLeft = this.player.isAlive();
+      this.status = "finished"
       console.log("Game Over");
+      playerLeft.forEach(char => console.log(char.name));
     };
   };
 
   isAlive = checkCharacters => {
-    return checkCharacters.filter(char => char.status !== "loser")
+    return checkCharacters.filter(char => char.status !== "loser" || char.hp <= 0)
   };
 }
 

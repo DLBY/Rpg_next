@@ -3,22 +3,23 @@ class Turn {
   constructor(characters) {
       this.characters = characters;
       this.startTurn();
-  }
+  };
 
   startTurn = () => {
     this.characters.forEach(player => {
-      if (player.status !== "loser") {
-      console.log(`---------------------------------------`);
-      console.log(`%cIt's time for ${player.name} to play !`, `color: darkseagreen`);
-      console.log(``);
-      console.log(`What will ${player.name} do ?`);
-      console.log(``);
-      let actionFight = true;
+      if (player.status !== "loser" || player.hp >= 0) {
+        console.log(`---------------------------------------`);
+        console.log(`%c%s`, `color: dark; background: lightblue; style: bold`, `It's time for ${player.name} to play !`);
+        console.log(``);
+        console.log(`What will ${player.name} do ?`);
+        console.log(``);
+        let actionFight = true;
       do {
         actionFight = true;
         console.log(`1 > Fight! \u2694\uFE0F`); 
-        console.log(`2 > Use special attack !  \u2B50`); //mettre les sorts dans specialAttack pour faire specialAttack.name ?
+        console.log(`2 > Use special attack !  \u2B50 ("not working yet")` ); //mettre les sorts dans specialAttack pour faire specialAttack.name ?
         console.log(`3 > Watch player status \u2B50`);
+        console.log(``);
         const playerAction = prompt("Enter you choice here");
         
         switch (playerAction) {
@@ -26,7 +27,8 @@ class Turn {
             this.oneTurn(player, this.characters);
             break;
           case "2":
-            console.log("Nothing here");
+            console.log("Nothing here, try again");
+            actionFight = false;
             break
           case "3":
             console.log("Here are the enemies status :");
@@ -43,62 +45,45 @@ class Turn {
       while (!actionFight);
     }
     })  
-      console.clear()
+      console.clear();
   };
 
-    enemyStatus = (player, allCharacters) => {
-    const victims = allCharacters.filter(char => char !== player)
-    victims.forEach(victim => console.log(`${victims.indexOf(victim) + 1 } - ${victim.name} : ${victim.constructor.name} - ${victim.hp}HP - ${victim.mana}MANA - ${victim.dmg}DMG`));
+    enemyStatus = (player, characters) => {
+    const victims = characters.filter(char => char !== player)
+    console.log(``);
+    victims.forEach(victim => console.log(`${victims.indexOf(victim) + 1} > ${victim.name} ( ${victim.constructor.name} - ${victim.hp}HP - ${victim.mana}MANA - ${victim.dmg}DMG )`));
+    console.log(``);
   }
 
     oneTurn = (player, characters) => {
-      let isValid = true
+
+      console.log(`---------------------------------------`);
+      console.log(`Choose your target below`);
+      console.log(``);
+      const victims = characters.filter(char => char !== player && char.status !== "loser");
+      victims.forEach(victim => console.log(`${victims.indexOf(victim) + 1} > ${victim.name}`));
+      let isValid = true;
+
       do {
-        isValid = true
-        console.log(`---------------------------------------`);
-        console.log(`Choose your target below`);
-        console.log(``);
-        console.log(`1 > Fight with Ulder ! \u2694\uFE0F`); 
-        console.log(`2 > Fight with Grace ! \u2B50`); //mettre les sorts dans specialAttack pour faire specialAttack.name ?
-        console.log(`3 > Fight with Moana ! \u2B50`);
-        console.log(`4 > Fight with Draven ! \u2694\uFE0F`);
-        console.log(`5 > Fight with Carl ! \u2694\uFE0F`);
-        console.log(`---------------------------------------`);
-        const target = prompt("Who is your victim ?");
-        if (target === "") { return;}
-      switch (target.toString().toLowerCase()) {
-        case "1":
-          let paladin = characters.filter(char => char.name === "Ulder")[0];
-          player.dealDamage(paladin)
-          console.log(`---------------------------------------`);
-          
-        break;
-        case "2":
-          let fighter = characters.filter(char => char.name === "Grace")[0];
-          player.dealDamage(fighter)
-          console.log(`---------------------------------------`);
-        break;
-        case "3":
-          let monk = characters.filter(char => char.name === "Moana")[0];
-          player.dealDamage(monk)
-          console.log(`---------------------------------------`);
-        break;
-        case "4":
-          let berzerker = characters.filter(char => char.name === "Draven")[0];
-          player.dealDamage(berzerker)
-          console.log(`---------------------------------------`);
-        break;
-        case "5":
-          let assassin = characters.filter(char => char.name === "Carl")[0];
-          player.dealDamage(assassin)
-          console.log(`---------------------------------------`);
-        break;
-        default:
+        isValid = true;
+        let target = prompt("Who is your victim ?");
+        let victim =victims[parseInt(target) - 1];
+        if (!victim) {
           console.log("Invalid choice, try again");
           isValid = false
           console.log(`---------------------------------------`);
+        } 
+        else if (victim.status === "loser") {
+          console.log("Invalid choice, try again");
+          isValid = false
+          console.log(`---------------------------------------`);
+        }
+        else {
+          player.dealDamage(victim)
 
-      };
+          prompt(`End of ${player.name}'s turn, press Enter to continue`);
+          console.clear();
+        };
     }
     while (!isValid)
   };

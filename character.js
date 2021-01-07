@@ -9,11 +9,12 @@ class Character {
 
 
   takeDamage = (enemy) => {
-    console.log(`${this.name} is attacking ${enemy.name} ! -${this.dmg}HP ! (${enemy.hp}HP left) :( `);
+    
     this.hp -= enemy.dmg ;
+    console.log(`%c%s`, `color: white; background:red; style:bold`,`${enemy.name} is attacking ${this.name} ! -${enemy.dmg}HP ! (${this.hp}HP left) :( `);
     if (this.hp <= 0) {
       this.status = "loser";
-      console.log(`${enemy.name} is dead ! RIP`);
+      console.log(`${this.name} is dead ! RIP`);
     }
   };
 
