@@ -6,11 +6,25 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   </head>
-  <body>
-
+  <body class="bg-gray-800">
+    <div class="flex items-center flex-col justify-center h-screen text-gray-300">
+      <h1 class="mb-6">Mets-toi au fond de ton siège, ouvre la console et clique sur jouer &#127922;</h1>
+      <button class="text-pink-500 bg-transparent border border-solid border-pink-500 hover:bg-pink-500 hover:text-gray-300 active:bg-pink-600 font-bold uppercase px-8 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 " type="button" style="transition: all .15s ease">
+        JOUER
+      </button>
+      
+      </div>
     
-    <script src="" async defer></script>
+    <script src="character.js" async defer></script>
+    <script src="berzerker.js" async defer></script>
+    <script src="assassin.js" async defer></script>
+    <script src="fighter.js" async defer></script>
+    <script src="paladin.js" async defer></script>
+    <script src="monk.js" async defer></script>
+    <script src="game.js" async defer></script>
+    <script src="turn.js" async defer></script>
+    <script src="main.js" async defer></script>
   </body>
 </html>
